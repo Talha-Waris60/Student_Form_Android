@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.StudentInfo" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="Theme.StudentInfo" parent="Base.Theme.StudentInfo" />
+
+
+   <!-- TODO: Customize your theme here.-->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/stdtn</item>
+        <item name="postSplashScreenTheme">@style/Theme.StudentInfo</item>
+        <!--<item name="android:windowSplashScreenBrandingImage">@drawable/branding</item>
+        <item name="windowSplashScreenBackground">@android:color/transparent</item>
+        <item name="windowSplashScreenIconBackgroundColor">@android:color/transparent</item>-->
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!--TODO: Button Themes-->
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+</resources>
