@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Student Info</string>
 
+    <string-array name="degree">
+        <item>Software Engineering</item>
+        <item>Computer Science</item>
+        <item>Information Technology</item>
+    </string-array>
 </resources>

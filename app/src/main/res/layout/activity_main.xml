@@ -23,6 +23,8 @@
         <Space
             android:layout_width="30dp"
             android:layout_height="wrap_content"/>
+
+
     <Button
         android:id="@+id/addStudent"
         android:layout_width="wrap_content"
@@ -31,8 +33,5 @@
         />
 
 </LinearLayout>
-
-
-
 
 </LinearLayout>
