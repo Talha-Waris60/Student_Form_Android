@@ -2,6 +2,7 @@ package com.devdroiddev.studentinfo.activities
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +18,12 @@ import java.util.Date
 import java.util.Locale
 
 class FormActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityFormBinding
+    private val emailPattern : String = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+    private val phoneNumberPattern : String = "\\+92-3XX-1234567"
+    // private var isAllFieldsChecked : Boolean = false;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFormBinding.inflate(layoutInflater)
@@ -70,7 +76,49 @@ class FormActivity : AppCompatActivity() {
                 }
             }
         }
-        binding.setDate.transformIntoDatePicker(this,"MM/dd/yyyy")
-        binding.setDate.transformIntoDatePicker(this,"MM/dd/yyyy", Date())
+        binding.setBirthDate.transformIntoDatePicker(this,"MM/dd/yyyy")
+        binding.setBirthDate.transformIntoDatePicker(this,"MM/dd/yyyy", Date())
+
+        // TODO: Submit Button
+        binding.submitBtn.setOnClickListener {
+           performAuthentication()
+        }
+    }
+
+    // TODO: Method to Perform Authentication on Form
+    private fun performAuthentication() {
+        val userName: String = binding.userName.text.toString()
+        val email: String = binding.email.text.toString().trim()
+        val birth: String = binding.setBirthDate.text.toString()
+        val gender: String = binding.genderDropDown.text.toString()
+        val phoneNumber: String = binding.phoneNumber.text.toString()
+        val degree: String = binding.degreeDropDown.text.toString()
+        val grade: String = binding.gradeDropDown.text.toString()
+        val address: String = binding.address.text.toString()
+        val city: String = binding.city.text.toString()
+        val zipCode: String = binding.zipCode.text.toString()
+
+        if (userName.isEmpty()) {
+            binding.userName.error = "Field is Empty"
+        }
+        if (email.isEmpty()) {
+            binding.email.error = "Field is Empty"
+        } else if (!email.matches(emailPattern.toRegex())) {
+            binding.email.error = "Enter Correct Email"
+        }
+        if (phoneNumber.isEmpty()) {
+            binding.phoneNumber.error = "Field is Empty"
+        } else if (!phoneNumber.matches(phoneNumberPattern.toRegex())){
+            binding.phoneNumber.error = "Enter Correct Number"
+        }
+        if (address.isEmpty()) {
+            binding.address.error = "Field is Empty"
+        }
+        if (city.isEmpty()) {
+            binding.city.error = "Field is Empty"
+        }
+        if (zipCode.isEmpty()) {
+            binding.zipCode.error = "Field is Empty"
+        }
     }
 }
