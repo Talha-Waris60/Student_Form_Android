@@ -113,7 +113,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="+92-3XX-1234567"
+        android:hint="Phone Number"
         app:hintTextColor="@color/black"
         app:boxBackgroundColor="@color/light_yellow"
         app:boxStrokeColor="@color/black"
@@ -127,7 +127,7 @@
             android:id="@+id/phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="text"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

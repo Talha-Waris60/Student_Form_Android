@@ -3,15 +3,27 @@ package com.devdroiddev.studentinfo.activities
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.devdroiddev.studentinfo.R
 import com.devdroiddev.studentinfo.databinding.ActivityFormBinding
 import com.devdroiddev.studentinfo.databinding.ActivityMainBinding
+import com.devdroiddev.studentinfo.dbclasses.StudentInfo
+import com.devdroiddev.studentinfo.dbclasses.StudentInfoDB
+import com.devdroiddev.studentinfo.utils.Helper
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -21,7 +33,8 @@ class FormActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFormBinding
     private val emailPattern : String = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-    private val phoneNumberPattern : String = "\\+92-3XX-1234567"
+    private val APP_TAG = "Student_INFO"
+    // private val phoneNumberPattern: String = "\\+92-3XX-1234567"
     // private var isAllFieldsChecked : Boolean = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,35 +62,10 @@ class FormActivity : AppCompatActivity() {
         val adapterGrade = ArrayAdapter(this, R.layout.drop_down_list, grade)
         binding.gradeDropDown.setAdapter(adapterGrade)
 
-        // TODO: Date Picker
-        fun EditText.transformIntoDatePicker(context: Context, format: String, maxDate: Date? = null) {
-            isFocusableInTouchMode = false
-            isClickable = true
-            isFocusable = false
+        Helper.transformIntoDatePicker(this,"MM/dd/yyyy", Date(),binding.setBirthDate)
 
-            val myCalendar = Calendar.getInstance()
-            val datePickerOnDataSetListener =
-                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                    myCalendar.set(Calendar.YEAR, year)
-                    myCalendar.set(Calendar.MONTH, monthOfYear)
-                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    val sdf = SimpleDateFormat(format, Locale.UK)
-                    setText(sdf.format(myCalendar.time))
-                }
-
-            setOnClickListener {
-                DatePickerDialog(
-                    context, datePickerOnDataSetListener, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                    myCalendar.get(Calendar.DAY_OF_MONTH)
-                ).run {
-                    maxDate?.time?.also { datePicker.maxDate = it }
-                    show()
-                }
-            }
-        }
-        binding.setBirthDate.transformIntoDatePicker(this,"MM/dd/yyyy")
-        binding.setBirthDate.transformIntoDatePicker(this,"MM/dd/yyyy", Date())
+        /*binding.setBirthDate.transformIntoDatePicker(this,"MM/dd/yyyy")
+        binding.setBirthDate.transformIntoDatePicker(this,"MM/dd/yyyy", Date())*/
 
         // TODO: Submit Button
         binding.submitBtn.setOnClickListener {
@@ -87,6 +75,8 @@ class FormActivity : AppCompatActivity() {
 
     // TODO: Method to Perform Authentication on Form
     private fun performAuthentication() {
+
+        // TODO: Get Data from Edittext and store them into variables
         val userName: String = binding.userName.text.toString()
         val email: String = binding.email.text.toString().trim()
         val birth: String = binding.setBirthDate.text.toString()
@@ -98,6 +88,68 @@ class FormActivity : AppCompatActivity() {
         val city: String = binding.city.text.toString()
         val zipCode: String = binding.zipCode.text.toString()
 
+        // TODO: Check validation Using If-Nested Statements
+        if (userName.isNotEmpty()) {
+            Log.d(APP_TAG, "UserName is not Empty")
+            if (email.isNotEmpty()) {
+                Log.d(APP_TAG, "Email is not Empty")
+                if (email.matches(emailPattern.toRegex())) {
+                    Log.d(APP_TAG, "Email Pattern is matches")
+                    if (phoneNumber.isNotEmpty()) {
+                        Log.d(APP_TAG, "Phone Number is not Empty")
+                        if (address.isNotEmpty()) {
+                            Log.d(APP_TAG, "Address is not Empty")
+                            if (city.isNotEmpty()) {
+                                Log.d(APP_TAG, "City is not Empty")
+                                if (zipCode.isNotEmpty()) {
+                                    Log.d(APP_TAG, "Zip code is not Empty")
+                                    if (Helper.isInternetAvailable(this)) {
+                                        Log.d(APP_TAG, "Internet is available")
+
+                                        // Create an instance of the database and push the data to database
+                                        // TODO: Calling the Object of dataclass
+                                        val studentData = StudentInfo(name = userName, email = email, birth = birth, gender = gender, phone = phoneNumber, degree = degree,
+                                            grade = grade, address = address, city = city, zipCode = zipCode)
+
+                                        // TODO: Database Instance
+                                            val studentDao = StudentInfoDB.getDatabase(applicationContext).studentInfoDAO()
+                                            CoroutineScope(Dispatchers.IO).launch {
+                                                studentDao.insertInfo(studentData)
+                                                Log.d(APP_TAG, "Student inserted into the database")
+
+                                                withContext(Dispatchers.Main){
+
+                                                }
+                                        }
+                                    } else {
+                                        Helper.showSnackBar(
+                                            binding.root,
+                                            "Internet is not Available"
+                                        )
+                                    }
+                                } else {
+                                    binding.zipCode.error = "Field is Empty"
+                                }
+                            } else {
+                                binding.city.error = "Field is Empty"
+                            }
+                        } else {
+                            binding.address.error = "Field is Empty"
+                        }
+                    } else {
+                        binding.phoneNumber.error = "Field is Empty"
+                    }
+                } else {
+                    binding.email.error = "Enter Correct Email"
+                }
+            } else {
+                binding.email.error = "Field is Empty"
+            }
+        } else {
+            binding.userName.error = "Field is Empty"
+        }
+    }
+        /*
         if (userName.isEmpty()) {
             binding.userName.error = "Field is Empty"
         }
@@ -108,7 +160,7 @@ class FormActivity : AppCompatActivity() {
         }
         if (phoneNumber.isEmpty()) {
             binding.phoneNumber.error = "Field is Empty"
-        } else if (!phoneNumber.matches(phoneNumberPattern.toRegex())){
+        } else if (phoneNumber.isEmpty()){
             binding.phoneNumber.error = "Enter Correct Number"
         }
         if (address.isEmpty()) {
@@ -119,6 +171,39 @@ class FormActivity : AppCompatActivity() {
         }
         if (zipCode.isEmpty()) {
             binding.zipCode.error = "Field is Empty"
+            if (isInternetAvailable()) {
+               showSnackBar("Internet is Available")
+            }
+            else showSnackBar("Internet is not Available")
         }
+    }*/
+        // TODO: Check for Internet accessibility
+
+
+
+
+    /*   Alternative way of Performing of Validation
+        TODO: validateField(userName, "Field is Empty", binding.userName)
+            validateField(email, "Field is Empty", binding.email)
+            validateField(email.matches(emailPattern.toRegex()), "Enter Correct Email", binding.email)
+            validateField(phoneNumber, "Field is Empty", binding.phoneNumber)
+            validateField(phoneNumber.matches(phoneNumberPattern.toRegex()), "Enter Correct Number", binding.phoneNumber)
+            validateField(address, "Field is Empty", binding.address)
+            validateField(city, "Field is Empty", binding.city)
+            validateField(zipCode, "Field is Empty", binding.zipCode)*/
+
+        /* private fun validateField(value: String, errorMessage: String, view: EditText) {
+            if (value.isEmpty()) {
+                view.error = errorMessage
+            }
+        }*/
+
+        /*  Method for checking the condition for Matching pattern
+         private fun validateField(condition: Boolean, errorMessage: String, view: EditText) {
+            if (!condition) {
+                view.error = errorMessage
+            }
+        }*/
+
     }
-}
+
