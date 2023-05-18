@@ -19,6 +19,6 @@ interface StudentInfoDAO {
     @Delete
     suspend fun deleteInfo(studentInfo : StudentInfo)
 
-    @Query("SELECT * FROM student_table")   // Compile verification of Queries
-    fun getStudentInfo() : LiveData<List<StudentInfo>>
+    @Query("SELECT * FROM student_table ORDER BY id DESC" )   // Compile verification of Queries
+    fun getStudentInfoData() : List<StudentInfo>
 }

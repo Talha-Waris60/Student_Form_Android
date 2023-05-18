@@ -18,6 +18,7 @@ import com.devdroiddev.studentinfo.databinding.ActivityFormBinding
 import com.devdroiddev.studentinfo.databinding.ActivityMainBinding
 import com.devdroiddev.studentinfo.dbclasses.StudentInfo
 import com.devdroiddev.studentinfo.dbclasses.StudentInfoDB
+import com.devdroiddev.studentinfo.list.StudentList
 import com.devdroiddev.studentinfo.utils.Helper
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
@@ -116,9 +117,9 @@ class FormActivity : AppCompatActivity() {
                                             CoroutineScope(Dispatchers.IO).launch {
                                                 studentDao.insertInfo(studentData)
                                                 Log.d(APP_TAG, "Student inserted into the database")
-
                                                 withContext(Dispatchers.Main){
-
+                                                    // Method to move on the other Activity
+                                                       moveToStudentListActivity()
                                                 }
                                         }
                                     } else {
@@ -149,34 +150,39 @@ class FormActivity : AppCompatActivity() {
             binding.userName.error = "Field is Empty"
         }
     }
-        /*
-        if (userName.isEmpty()) {
-            binding.userName.error = "Field is Empty"
+
+    private fun moveToStudentListActivity() {
+        startActivity(Intent(this@FormActivity, StudentList::class.java))
+        finish()
+    }
+    /*
+    if (userName.isEmpty()) {
+        binding.userName.error = "Field is Empty"
+    }
+    if (email.isEmpty()) {
+        binding.email.error = "Field is Empty"
+    } else if (!email.matches(emailPattern.toRegex())) {
+        binding.email.error = "Enter Correct Email"
+    }
+    if (phoneNumber.isEmpty()) {
+        binding.phoneNumber.error = "Field is Empty"
+    } else if (phoneNumber.isEmpty()){
+        binding.phoneNumber.error = "Enter Correct Number"
+    }
+    if (address.isEmpty()) {
+        binding.address.error = "Field is Empty"
+    }
+    if (city.isEmpty()) {
+        binding.city.error = "Field is Empty"
+    }
+    if (zipCode.isEmpty()) {
+        binding.zipCode.error = "Field is Empty"
+        if (isInternetAvailable()) {
+           showSnackBar("Internet is Available")
         }
-        if (email.isEmpty()) {
-            binding.email.error = "Field is Empty"
-        } else if (!email.matches(emailPattern.toRegex())) {
-            binding.email.error = "Enter Correct Email"
-        }
-        if (phoneNumber.isEmpty()) {
-            binding.phoneNumber.error = "Field is Empty"
-        } else if (phoneNumber.isEmpty()){
-            binding.phoneNumber.error = "Enter Correct Number"
-        }
-        if (address.isEmpty()) {
-            binding.address.error = "Field is Empty"
-        }
-        if (city.isEmpty()) {
-            binding.city.error = "Field is Empty"
-        }
-        if (zipCode.isEmpty()) {
-            binding.zipCode.error = "Field is Empty"
-            if (isInternetAvailable()) {
-               showSnackBar("Internet is Available")
-            }
-            else showSnackBar("Internet is not Available")
-        }
-    }*/
+        else showSnackBar("Internet is not Available")
+    }
+}*/
         // TODO: Check for Internet accessibility
 
 

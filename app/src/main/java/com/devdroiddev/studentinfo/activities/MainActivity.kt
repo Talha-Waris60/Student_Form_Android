@@ -5,13 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.devdroiddev.studentinfo.databinding.ActivityMainBinding
+import com.devdroiddev.studentinfo.list.StudentList
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        Thread.sleep(2000)
-        // TODO: Splash screen
+
+        // Splash screen
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -20,6 +21,12 @@ class MainActivity : AppCompatActivity() {
         binding.addStudent.setOnClickListener {
             val intent = Intent(this@MainActivity, FormActivity::class.java)
             startActivity(intent)
+        }
+
+        // Show Activity Button
+        binding.viewStudent.setOnClickListener {
+            val iShow = Intent(this@MainActivity, StudentList::class.java)
+            startActivity(iShow)
         }
     }
 }
