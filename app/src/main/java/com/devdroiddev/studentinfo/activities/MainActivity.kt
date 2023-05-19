@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.addStudent.setOnClickListener {
             val intent = Intent(this@MainActivity, FormActivity::class.java)
+            intent.putExtra("from", "MainActivity")
             startActivity(intent)
         }
 

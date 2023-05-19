@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
@@ -35,6 +36,7 @@ class FormActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFormBinding
     private val emailPattern : String = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
     private val APP_TAG = "Student_INFO"
+    var from = ""
     // private val phoneNumberPattern: String = "\\+92-3XX-1234567"
     // private var isAllFieldsChecked : Boolean = false;
 
@@ -43,6 +45,14 @@ class FormActivity : AppCompatActivity() {
         binding = ActivityFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        from = intent.getStringExtra("from") ?: ""
+
+        if (from == "MainActivity"){
+            binding.submitBtn.text= "Submit"
+        } else {
+           binding.submitBtn.text = "Update"
+        }
         // TODO: Another way to Make DropDown Menu
         /*val feelings = resources.getStringArray(R.array.feelings)
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, feelings)
@@ -70,9 +80,54 @@ class FormActivity : AppCompatActivity() {
 
         // TODO: Submit Button
         binding.submitBtn.setOnClickListener {
-           performAuthentication()
+            if (from == "MainActivity") {
+                // add the data into the data base
+                 performAuthentication()
+            } else {
+                //update the data
+                val existingStudent = intent.getParcelableExtra<StudentInfo>("student_model")
+
+                val updatedStudent = existingStudent?.copy(
+                    name = binding.userName.text.toString(),
+                    email = binding.email.text.toString(),
+                    birth = binding.setBirthDate.text.toString(),
+                    gender = binding.genderDropDown.text.toString(),
+                    phone = binding.phoneNumber.text.toString(),
+                    degree = binding.degreeDropDown.text.toString(),
+                    grade = binding.gradeDropDown.text.toString(),
+                    address = binding.address.text.toString(),
+                    city = binding.city.text.toString(),
+                    zipCode = binding.zipCode.text.toString()
+                )
+                val db = StudentInfoDB.getDatabase(applicationContext).studentInfoDAO()
+                CoroutineScope(Dispatchers.IO).launch {
+                    if (updatedStudent != null) {
+                        db.updateInfo(updatedStudent)
+                        withContext(Dispatchers.Main) {
+                            finish()
+                        }
+                    }
+                }
+            }
         }
+
+        // Get the intent here that is on array adapter
+        val getStudentRecord = intent.getParcelableExtra<StudentInfo>("student_model")
+
+        // Set these values on EditText
+        binding.userName.setText(getStudentRecord?.name)
+        binding.email.setText(getStudentRecord?.email)
+        binding.setBirthDate.setText(getStudentRecord?.birth)
+        binding.genderDropDown.setText(getStudentRecord?.gender)
+        binding.phoneNumber.setText( getStudentRecord?.phone)
+        binding.degreeDropDown.setText(getStudentRecord?.degree)
+        binding.gradeDropDown.setText(getStudentRecord?.grade)
+        binding.address.setText(getStudentRecord?.address)
+        binding.city.setText(getStudentRecord?.city)
+        binding.zipCode.setText(getStudentRecord?.zipCode)
     }
+
+
 
     // TODO: Method to Perform Authentication on Form
     private fun performAuthentication() {

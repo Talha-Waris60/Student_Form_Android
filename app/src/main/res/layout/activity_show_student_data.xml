@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ShowStudentDataActivity"
+    android:padding="15dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/show_student_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Name"
+        android:textStyle="bold"
+        android:textSize="26sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/show_student_degree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Degree"
+        android:textSize="20sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/show_student_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textSize="20sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/show_student_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:textSize="20sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"/>
+
+
+    <TextView
+        android:id="@+id/show_student_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grade"
+        android:textSize="20sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/show_student_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="City"
+        android:textSize="20sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="140dp">
+
+        <Button
+            android:id="@+id/update_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update" />
+
+        <Button
+            android:id="@+id/delete_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:layout_marginLeft="50dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
