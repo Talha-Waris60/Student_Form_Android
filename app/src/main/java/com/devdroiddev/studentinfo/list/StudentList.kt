@@ -22,10 +22,10 @@ class StudentList : AppCompatActivity() {
         binding = ActivityStudentListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.floatAddBtn.setOnClickListener {
+        /*binding.floatAddBtn.setOnClickListener {
             startActivity(Intent(this@StudentList,FormActivity::class.java))
             finish()
-        }
+        }*/
 
     binding.studentRecycler.apply {
         layoutManager = LinearLayoutManager(this@StudentList)

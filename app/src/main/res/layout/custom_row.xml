@@ -6,7 +6,7 @@
     app:contentPadding="10dp"
     android:backgroundTint="@color/light_yellow"
     app:cardCornerRadius="5dp"
-    app:cardElevation="15dp"
+    android:elevation="5dp"
     android:layout_margin="2dp">
 
 
@@ -48,13 +48,24 @@
 
         </LinearLayout>
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/delete_item"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@drawable/delete"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"/>-->
+
+        <ImageView
+            android:id="@+id/menuOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="15dp"
+            android:paddingLeft="18dp"
+            android:src="@drawable/dots"
+            android:textAppearance="?android:textAppearanceLarge" />
     </RelativeLayout>
 <!--
     <LinearLayout

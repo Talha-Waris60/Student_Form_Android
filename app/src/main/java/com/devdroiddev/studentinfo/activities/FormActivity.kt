@@ -60,17 +60,19 @@ class FormActivity : AppCompatActivity() {
 
         // TODO: Gender Drop Down List
         val gender = listOf("Male", "Female", "Other")
-        val adapter = ArrayAdapter(this, R.layout.drop_down_list, gender)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, gender)
         binding.genderDropDown.setAdapter(adapter)
+        binding.genderDropDown.setSelection(0)
+
 
         // TODO: Degree Drop Down List
         val degree = resources.getStringArray(R.array.degree)
-        val adapterDegree = ArrayAdapter(this, R.layout.drop_down_list, degree)
+        val adapterDegree = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item, degree)
         binding.degreeDropDown.setAdapter(adapterDegree)
 
         // TODO: Degree Drop Down List
-        val grade = listOf('A', 'B', 'C')
-        val adapterGrade = ArrayAdapter(this, R.layout.drop_down_list, grade)
+        val grade = listOf("A", "B", "C")
+        val adapterGrade = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, grade)
         binding.gradeDropDown.setAdapter(adapterGrade)
 
         Helper.transformIntoDatePicker(this,"MM/dd/yyyy", Date(),binding.setBirthDate)
@@ -84,17 +86,17 @@ class FormActivity : AppCompatActivity() {
                 // add the data into the data base
                  performAuthentication()
             } else {
-                //update the data
+                //update the data on the reuse Activity
                 val existingStudent = intent.getParcelableExtra<StudentInfo>("student_model")
 
                 val updatedStudent = existingStudent?.copy(
                     name = binding.userName.text.toString(),
                     email = binding.email.text.toString(),
                     birth = binding.setBirthDate.text.toString(),
-                    gender = binding.genderDropDown.text.toString(),
+                    gender = binding.genderDropDown.selectedItem.toString(),
                     phone = binding.phoneNumber.text.toString(),
-                    degree = binding.degreeDropDown.text.toString(),
-                    grade = binding.gradeDropDown.text.toString(),
+                    degree = binding.degreeDropDown.selectedItem.toString(),
+                    grade = binding.gradeDropDown.selectedItem.toString(),
                     address = binding.address.text.toString(),
                     city = binding.city.text.toString(),
                     zipCode = binding.zipCode.text.toString()
@@ -118,16 +120,17 @@ class FormActivity : AppCompatActivity() {
         binding.userName.setText(getStudentRecord?.name)
         binding.email.setText(getStudentRecord?.email)
         binding.setBirthDate.setText(getStudentRecord?.birth)
-        binding.genderDropDown.setText(getStudentRecord?.gender)
+        val genderPosition = gender.indexOf(getStudentRecord?.gender)
+        binding.genderDropDown.setSelection(genderPosition)
         binding.phoneNumber.setText( getStudentRecord?.phone)
-        binding.degreeDropDown.setText(getStudentRecord?.degree)
-        binding.gradeDropDown.setText(getStudentRecord?.grade)
+        val degreePosition = degree.indexOf(getStudentRecord?.degree)
+        binding.degreeDropDown.setSelection(degreePosition)
+        val gradePosition = grade.indexOf(getStudentRecord?.grade)
+        binding.gradeDropDown.setSelection(gradePosition)
         binding.address.setText(getStudentRecord?.address)
         binding.city.setText(getStudentRecord?.city)
         binding.zipCode.setText(getStudentRecord?.zipCode)
     }
-
-
 
     // TODO: Method to Perform Authentication on Form
     private fun performAuthentication() {
@@ -136,10 +139,10 @@ class FormActivity : AppCompatActivity() {
         val userName: String = binding.userName.text.toString()
         val email: String = binding.email.text.toString().trim()
         val birth: String = binding.setBirthDate.text.toString()
-        val gender: String = binding.genderDropDown.text.toString()
+        val gender: String = binding.genderDropDown.selectedItem.toString()
         val phoneNumber: String = binding.phoneNumber.text.toString()
-        val degree: String = binding.degreeDropDown.text.toString()
-        val grade: String = binding.gradeDropDown.text.toString()
+        val degree: String = binding.degreeDropDown.selectedItem.toString()
+        val grade: String = binding.gradeDropDown.selectedItem.toString()
         val address: String = binding.address.text.toString()
         val city: String = binding.city.text.toString()
         val zipCode: String = binding.zipCode.text.toString()
@@ -239,8 +242,6 @@ class FormActivity : AppCompatActivity() {
     }
 }*/
         // TODO: Check for Internet accessibility
-
-
 
 
     /*   Alternative way of Performing of Validation
