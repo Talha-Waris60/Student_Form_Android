@@ -26,5 +26,5 @@ interface StudentInfoDAO {
     suspend fun deleteStudentById(studentId: Int)
 
     @Query("SELECT * FROM student_table ORDER BY id DESC" )   // Compile verification of Queries
-    fun getStudentInfoData() : List<StudentInfo>
+    fun getStudentInfoData() : MutableList<StudentInfo>
 }

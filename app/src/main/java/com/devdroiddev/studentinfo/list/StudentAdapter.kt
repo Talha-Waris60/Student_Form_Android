@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 
 class StudentAdapter(private val context: Context) : RecyclerView.Adapter<StudentAdapter.MyViewHolder>() {
     private var studentList = mutableListOf<StudentInfo>()
-    private var currentStudentMenu: StudentInfo? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.custom_row,parent,false))
@@ -103,7 +102,11 @@ class StudentAdapter(private val context: Context) : RecyclerView.Adapter<Studen
         popup.show()
     }
 
-
+    // set the Filter List Here
+    fun setFilteredList(filteredList : MutableList<StudentInfo> ) {
+            studentList = filteredList
+            notifyDataSetChanged()
+    }
     // Set Data Method
     fun setData(data: List<StudentInfo>){
         studentList.apply {

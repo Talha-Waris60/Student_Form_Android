@@ -84,58 +84,46 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-<!--
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="2dp"
-            android:padding="4dp"
-            app:cardCornerRadius="18dp"
-            android:backgroundTint="@color/light_yellow">
 
-            <Spinner
-                android:id="@+id/genderDropDown"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </androidx.cardview.widget.CardView>
--->
-            <Spinner
+           <!-- <Spinner
                 android:id="@+id/genderDropDown"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:spinnerMode="dropdown"
                 android:padding="4dp"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginLeft="2dp" />-->
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/gender"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:hint="Gender"-->
-<!--            android:textColorHint="@color/black"-->
-<!--            app:boxBackgroundColor="@color/light_yellow"-->
-<!--            app:boxStrokeColor="@color/black"-->
-<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
-<!--            app:boxCornerRadiusBottomEnd="20dp"-->
-<!--            app:boxCornerRadiusBottomStart="20dp"-->
-<!--            app:boxCornerRadiusTopEnd="20dp"-->
-<!--            app:boxCornerRadiusTopStart="20dp"-->
-<!--            android:padding="@dimen/padding_small">-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:hint="Gender"
+            android:textColorHint="@color/black"
+            app:hintTextColor="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:endIconTint="@color/black"
+            app:boxBackgroundColor="@color/light_yellow"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            android:padding="@dimen/padding_small">
 
-<!--            <AutoCompleteTextView-->
-<!--                android:id="@+id/genderDropDown"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:inputType="none"-->
-<!--                android:ellipsize="end"-->
-<!--                android:maxLines="1"/>-->
+            <AutoCompleteTextView
+                android:id="@+id/genderDropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dropDownWidth="wrap_content"
+                android:inputType="none"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:maxLength="120"
+                android:singleLine="true"
+                android:ellipsize="end" />
 
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -168,7 +156,7 @@
         android:layout_marginTop="@dimen/margin_medium">
 
 
-        <Spinner
+<!--        <Spinner
             android:id="@+id/degreeDropDown"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -188,18 +176,19 @@
             android:spinnerMode="dropdown"
             android:padding="4dp"
             android:layout_marginLeft="2dp"
-            android:background="@drawable/custom_bg"/>
-<!--
+            android:background="@drawable/custom_bg"/>-->
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/Degree_program"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Degree"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:hint="Degree"
             android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/light_yellow"
+            app:hintTextColor="@color/black"
             app:boxStrokeColor="@color/black"
+            app:endIconTint="@color/black"
+            app:boxBackgroundColor="@color/light_yellow"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusBottomStart="20dp"
             app:boxCornerRadiusTopEnd="20dp"
@@ -210,23 +199,25 @@
                 android:id="@+id/degreeDropDown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:dropDownWidth="wrap_content"
                 android:inputType="none"
                 android:maxLines="1"
+                android:maxLength="120"
                 android:ellipsize="end"
-                android:dropDownWidth="wrap_content"/>
+                android:singleLine="true" />
 
-        </com.google.android.material.textfield.TextInputLayout>-->
+        </com.google.android.material.textfield.TextInputLayout>
 
-<!--        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/grade"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Grade"
             android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/light_yellow"
-            app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black"
+            app:boxStrokeColor="@color/black"
+            app:endIconTint="@color/black"
+            app:boxBackgroundColor="@color/light_yellow"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusBottomStart="20dp"
@@ -238,11 +229,14 @@
                 android:id="@+id/gradeDropDown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:dropDownWidth="wrap_content"
                 android:inputType="none"
+                android:maxLines="1"
+                android:maxLength="120"
                 android:ellipsize="end"
-                android:maxLines="1"/>
+                android:singleLine="true"/>
 
-        </com.google.android.material.textfield.TextInputLayout>-->
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

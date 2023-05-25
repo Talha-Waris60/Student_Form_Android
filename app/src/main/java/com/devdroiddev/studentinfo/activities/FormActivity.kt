@@ -3,6 +3,7 @@ package com.devdroiddev.studentinfo.activities
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
@@ -60,19 +61,18 @@ class FormActivity : AppCompatActivity() {
 
         // TODO: Gender Drop Down List
         val gender = listOf("Male", "Female", "Other")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, gender)
+        val adapter = ArrayAdapter(this, R.layout.drop_down_list , gender)
         binding.genderDropDown.setAdapter(adapter)
-        binding.genderDropDown.setSelection(0)
 
 
         // TODO: Degree Drop Down List
         val degree = resources.getStringArray(R.array.degree)
-        val adapterDegree = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item, degree)
+        val adapterDegree = ArrayAdapter(this,  R.layout.drop_down_list  , degree)
         binding.degreeDropDown.setAdapter(adapterDegree)
 
         // TODO: Degree Drop Down List
         val grade = listOf("A", "B", "C")
-        val adapterGrade = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, grade)
+        val adapterGrade = ArrayAdapter(this,  R.layout.drop_down_list, grade)
         binding.gradeDropDown.setAdapter(adapterGrade)
 
         Helper.transformIntoDatePicker(this,"MM/dd/yyyy", Date(),binding.setBirthDate)
@@ -93,10 +93,10 @@ class FormActivity : AppCompatActivity() {
                     name = binding.userName.text.toString(),
                     email = binding.email.text.toString(),
                     birth = binding.setBirthDate.text.toString(),
-                    gender = binding.genderDropDown.selectedItem.toString(),
+                    gender = binding.genderDropDown.text.toString(),
                     phone = binding.phoneNumber.text.toString(),
-                    degree = binding.degreeDropDown.selectedItem.toString(),
-                    grade = binding.gradeDropDown.selectedItem.toString(),
+                    degree = binding.degreeDropDown.text.toString(),
+                    grade = binding.gradeDropDown.text.toString(),
                     address = binding.address.text.toString(),
                     city = binding.city.text.toString(),
                     zipCode = binding.zipCode.text.toString()
@@ -120,13 +120,20 @@ class FormActivity : AppCompatActivity() {
         binding.userName.setText(getStudentRecord?.name)
         binding.email.setText(getStudentRecord?.email)
         binding.setBirthDate.setText(getStudentRecord?.birth)
-        val genderPosition = gender.indexOf(getStudentRecord?.gender)
-        binding.genderDropDown.setSelection(genderPosition)
+        val defaultGender = getStudentRecord?.gender
+        binding.genderDropDown.setText(defaultGender, false)
+       /* binding.genderDropDown.setText(getStudentRecord?.gender)*/
+//        val genderPosition = gender.indexOf(getStudentRecord?.gender)
+//        binding.genderDropDown.setSelection(genderPosition)
         binding.phoneNumber.setText( getStudentRecord?.phone)
-        val degreePosition = degree.indexOf(getStudentRecord?.degree)
-        binding.degreeDropDown.setSelection(degreePosition)
-        val gradePosition = grade.indexOf(getStudentRecord?.grade)
-        binding.gradeDropDown.setSelection(gradePosition)
+        val defaultDegree = getStudentRecord?.degree
+        binding.degreeDropDown.setText(defaultDegree, false)
+       /* val degreePosition = degree.indexOf(getStudentRecord?.degree)
+        binding.degreeDropDown.setSelection(degreePosition)*/
+        val defaultGrade = getStudentRecord?.grade
+        binding.gradeDropDown.setText(defaultGrade,false)
+        /*val gradePosition = grade.indexOf(getStudentRecord?.grade)
+        binding.gradeDropDown.setSelection(gradePosition)*/
         binding.address.setText(getStudentRecord?.address)
         binding.city.setText(getStudentRecord?.city)
         binding.zipCode.setText(getStudentRecord?.zipCode)
@@ -139,10 +146,10 @@ class FormActivity : AppCompatActivity() {
         val userName: String = binding.userName.text.toString()
         val email: String = binding.email.text.toString().trim()
         val birth: String = binding.setBirthDate.text.toString()
-        val gender: String = binding.genderDropDown.selectedItem.toString()
+        val gender: String = binding.genderDropDown.text.toString()
         val phoneNumber: String = binding.phoneNumber.text.toString()
-        val degree: String = binding.degreeDropDown.selectedItem.toString()
-        val grade: String = binding.gradeDropDown.selectedItem.toString()
+        val degree: String = binding.degreeDropDown.text.toString()
+        val grade: String = binding.gradeDropDown.text.toString()
         val address: String = binding.address.text.toString()
         val city: String = binding.city.text.toString()
         val zipCode: String = binding.zipCode.text.toString()

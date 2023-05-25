@@ -8,11 +8,23 @@
     android:backgroundTint="@color/white"
     android:padding="8dp">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_searchview_background"
+        app:queryHint="Search Here.."
+        app:iconifiedByDefault="false"
+        android:layout_marginTop="10dp"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/student_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/custom_row"/>
+        android:layout_below="@+id/search_view"
+        tools:listitem="@layout/custom_row"
+        android:layout_marginTop="10dp"/>
 
     <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/float_add_btn"
@@ -23,5 +35,14 @@
         app:backgroundTint="@color/teal_700"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"/>-->
+
+    <TextView
+        android:id="@+id/no_results_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No results found"
+       android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:textSize="20sp"/>
 
 </RelativeLayout>
