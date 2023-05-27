@@ -1,7 +1,6 @@
-package com.devdroiddev.studentinfo.list
+package com.devdroiddev.studentinfo.adapters
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -11,18 +10,16 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.devdroiddev.studentinfo.R
 import com.devdroiddev.studentinfo.activities.FormActivity
-import com.devdroiddev.studentinfo.activities.ShowStudentDataActivity
-import com.devdroiddev.studentinfo.dbclasses.StudentInfo
-import com.devdroiddev.studentinfo.dbclasses.StudentInfoDB
+import com.devdroiddev.studentinfo.dbclasses.StudentDB
+import com.devdroiddev.studentinfo.models.StudentModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class StudentAdapter(private val context: Context) : RecyclerView.Adapter<StudentAdapter.MyViewHolder>() {
-    private var studentList = mutableListOf<StudentInfo>()
+    private var studentList = mutableListOf<StudentModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.custom_row,parent,false))
@@ -58,7 +55,7 @@ class StudentAdapter(private val context: Context) : RecyclerView.Adapter<Studen
         }
     }
 
-    private fun showPopupMenu(view: View, student: StudentInfo, position : Int) {
+    private fun showPopupMenu(view: View, student: StudentModel, position : Int) {
         val popup = PopupMenu(context, view)
         popup.inflate(R.menu.option_menu)
         popup.setOnMenuItemClickListener { item ->
@@ -72,9 +69,9 @@ class StudentAdapter(private val context: Context) : RecyclerView.Adapter<Studen
                         .setMessage("Are you sure you want to delete this student?")
                         .setPositiveButton("Yes") { _, _  ->
                             // Delete the student from the database
-                            val db = StudentInfoDB.getDatabase(context).studentInfoDAO()
+                            val db = StudentDB.getDatabase(context).studentDAO()
                             CoroutineScope(Dispatchers.IO).launch {
-                                db.deleteInfo(student)
+                                db.deleteModel(student)
                             }
                             studentList.removeAt(position)
                             notifyItemRemoved(position )
@@ -103,12 +100,12 @@ class StudentAdapter(private val context: Context) : RecyclerView.Adapter<Studen
     }
 
     // set the Filter List Here
-    fun setFilteredList(filteredList : MutableList<StudentInfo> ) {
+    fun setFilteredList(filteredList : MutableList<StudentModel> ) {
             studentList = filteredList
             notifyDataSetChanged()
     }
     // Set Data Method
-    fun setData(data: List<StudentInfo>){
+    fun setData(data: List<StudentModel>){
         studentList.apply {
             clear()
             addAll(data)

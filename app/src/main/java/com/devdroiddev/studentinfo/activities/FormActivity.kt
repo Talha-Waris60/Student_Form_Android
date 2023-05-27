@@ -1,36 +1,20 @@
 package com.devdroiddev.studentinfo.activities
 
-import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.devdroiddev.studentinfo.R
 import com.devdroiddev.studentinfo.databinding.ActivityFormBinding
-import com.devdroiddev.studentinfo.databinding.ActivityMainBinding
-import com.devdroiddev.studentinfo.dbclasses.StudentInfo
-import com.devdroiddev.studentinfo.dbclasses.StudentInfoDB
-import com.devdroiddev.studentinfo.list.StudentList
+import com.devdroiddev.studentinfo.dbclasses.StudentDB
+import com.devdroiddev.studentinfo.models.StudentModel
 import com.devdroiddev.studentinfo.utils.Helper
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
-import java.util.Locale
 
 class FormActivity : AppCompatActivity() {
 
@@ -87,7 +71,7 @@ class FormActivity : AppCompatActivity() {
                  performAuthentication()
             } else {
                 //update the data on the reuse Activity
-                val existingStudent = intent.getParcelableExtra<StudentInfo>("student_model")
+                val existingStudent = intent.getParcelableExtra<StudentModel>("student_model")
 
                 val updatedStudent = existingStudent?.copy(
                     name = binding.userName.text.toString(),
@@ -101,10 +85,10 @@ class FormActivity : AppCompatActivity() {
                     city = binding.city.text.toString(),
                     zipCode = binding.zipCode.text.toString()
                 )
-                val db = StudentInfoDB.getDatabase(applicationContext).studentInfoDAO()
+                val db = StudentDB.getDatabase(applicationContext).studentDAO()
                 CoroutineScope(Dispatchers.IO).launch {
                     if (updatedStudent != null) {
-                        db.updateInfo(updatedStudent)
+                        db.updateModel(updatedStudent)
                         withContext(Dispatchers.Main) {
                             finish()
                         }
@@ -113,8 +97,8 @@ class FormActivity : AppCompatActivity() {
             }
         }
 
-        // Get the intent here that is on array adapter
-        val getStudentRecord = intent.getParcelableExtra<StudentInfo>("student_model")
+        // Get the intent here that is on adapter
+        val getStudentRecord = intent.getParcelableExtra<StudentModel>("student_model")
 
         // Set these values on EditText
         binding.userName.setText(getStudentRecord?.name)
@@ -174,13 +158,13 @@ class FormActivity : AppCompatActivity() {
 
                                         // Create an instance of the database and push the data to database
                                         // TODO: Calling the Object of dataclass
-                                        val studentData = StudentInfo(name = userName, email = email, birth = birth, gender = gender, phone = phoneNumber, degree = degree,
+                                        val studentData = StudentModel(name = userName, email = email, birth = birth, gender = gender, phone = phoneNumber, degree = degree,
                                             grade = grade, address = address, city = city, zipCode = zipCode)
 
                                         // TODO: Database Instance
-                                            val studentDao = StudentInfoDB.getDatabase(applicationContext).studentInfoDAO()
+                                            val studentDao = StudentDB.getDatabase(applicationContext).studentDAO()
                                             CoroutineScope(Dispatchers.IO).launch {
-                                                studentDao.insertInfo(studentData)
+                                                studentDao.insertModel(studentData)
                                                 Log.d(APP_TAG, "Student inserted into the database")
                                                 withContext(Dispatchers.Main){
                                                     // Method to move on the other Activity
@@ -217,7 +201,7 @@ class FormActivity : AppCompatActivity() {
     }
 
     private fun moveToStudentListActivity() {
-        startActivity(Intent(this@FormActivity, StudentList::class.java))
+        startActivity(Intent(this@FormActivity, StudentListActivity::class.java))
         finish()
     }
     /*

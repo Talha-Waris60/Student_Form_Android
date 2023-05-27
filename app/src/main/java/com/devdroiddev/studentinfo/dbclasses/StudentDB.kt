@@ -4,20 +4,21 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.devdroiddev.studentinfo.models.StudentModel
 
-@Database(entities = [StudentInfo::class], version = 1)
-abstract class StudentInfoDB : RoomDatabase(){
+@Database(entities = [StudentModel::class], version = 1)
+abstract class StudentDB : RoomDatabase(){
 
     // TODO: Link the DAO to database class
-    abstract fun studentInfoDAO() : StudentInfoDAO
+    abstract fun studentDAO() : StudentDAO
     companion object {
         @Volatile
-        private var INSTANCE: StudentInfoDB? = null
-        fun getDatabase(context: Context): StudentInfoDB {
+        private var INSTANCE: StudentDB? = null
+        fun getDatabase(context: Context): StudentDB {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    StudentInfoDB::class.java,
+                    StudentDB::class.java,
                     "student_database"
                 ).build()
                 INSTANCE = instance

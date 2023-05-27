@@ -1,14 +1,13 @@
-package com.devdroiddev.studentinfo.dbclasses
+package com.devdroiddev.studentinfo.models
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "student_table")
-data class StudentInfo(
+data class StudentModel(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val name: String,
