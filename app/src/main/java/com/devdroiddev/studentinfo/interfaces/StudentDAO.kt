@@ -1,4 +1,4 @@
-package com.devdroiddev.studentinfo.dbclasses
+package com.devdroiddev.studentinfo.interfaces
 
 import androidx.room.Dao
 import androidx.room.Delete

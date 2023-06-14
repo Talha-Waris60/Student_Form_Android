@@ -6,23 +6,35 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.devdroiddev.studentinfo.R
 import com.devdroiddev.studentinfo.activities.FormActivity
+import com.devdroiddev.studentinfo.databinding.StudentItemRowBinding
 import com.devdroiddev.studentinfo.dbclasses.StudentDB
+import com.devdroiddev.studentinfo.interfaces.OnItemClickListener
+import com.devdroiddev.studentinfo.interfaces.PopMenu
 import com.devdroiddev.studentinfo.models.StudentModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class StudentAdapter(private val context: Context) : RecyclerView.Adapter<StudentAdapter.MyViewHolder>() {
-    private var studentList = mutableListOf<StudentModel>()
+class StudentAdapter(private val context: Context, private val studentList: MutableList<StudentModel>,
+                     private val itemClickListener: OnItemClickListener<StudentModel>, private val menuItem : PopMenu<StudentModel>
+) : RecyclerView.Adapter<StudentAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.custom_row,parent,false))
+        /*val inflater= LayoutInflater.from(parent.context)
+       val view = inflater.inflate(R.layout.student_item_row, parent, false)
+       return MyViewHolder(view)*/
+
+        // Applying View Binding
+        val inflater = LayoutInflater.from(parent.context)
+        val binding: StudentItemRowBinding = StudentItemRowBinding.inflate(inflater, parent, false)
+        return MyViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -31,17 +43,27 @@ class StudentAdapter(private val context: Context) : RecyclerView.Adapter<Studen
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentStudent = studentList[position]
-        holder.sdName.text = currentStudent.name
-        holder.sdPhone.text = currentStudent.phone
+        holder.binding.studentItemRow = currentStudent
+        holder.binding.clickListener = itemClickListener
+        holder.binding.menu = menuItem
+        holder.binding.position = position
+        holder.binding.executePendingBindings()
+
+        /*holder.itemView.setOnClickListener{
+            itemClickListener.onItemClicked(currentStudent)
+        }*/
+
+
+        /* holder.binding.studentName.text = currentStudent.name
+        holder.binding.studentPhoneNumber.text = currentStudent.phone*/
 
         // click listener on each Item view
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context,FormActivity::class.java)
-            intent.putExtra("from", "StudentAdapter")
+       /* holder.itemView.setOnClickListener {
+            val intent = Intent(context, FormActivity::class.java)
             intent.putExtra("student_model", currentStudent)
             context.startActivity(intent)
-        }
-       /* holder.deleteData.setOnClickListener {
+        }*/
+        /* holder.deleteData.setOnClickListener {
                 val db = StudentInfoDB.getDatabase(context).studentInfoDAO()
             CoroutineScope(Dispatchers.IO).launch {
                 db.deleteInfo(currentStudent)
@@ -50,31 +72,31 @@ class StudentAdapter(private val context: Context) : RecyclerView.Adapter<Studen
             notifyItemRemoved(holder.position )
         }*/
 
-        holder.selectMenuIcon.setOnClickListener {
-            showPopupMenu(holder.selectMenuIcon, currentStudent, position)
-        }
+       /* holder.binding.menuOptions.setOnClickListener {
+            *//*showPopupMenu(holder.binding.menuOptions, currentStudent, position)*//*
+            menuItem.showMenu(holder.binding.menuOptions, currentStudent, position)
+        }*/
     }
 
-    private fun showPopupMenu(view: View, student: StudentModel, position : Int) {
+/*    private fun showPopupMenu(view: View, student: StudentModel, position: Int) {
         val popup = PopupMenu(context, view)
         popup.inflate(R.menu.option_menu)
         popup.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.delete_opt -> {
-
                     // Create a dialogue box here
                     val confirmationDialog = AlertDialog.Builder(context)
                         .setTitle("Delete")
                         .setIcon(R.drawable.delete)
                         .setMessage("Are you sure you want to delete this student?")
-                        .setPositiveButton("Yes") { _, _  ->
+                        .setPositiveButton("Yes") { _, _ ->
                             // Delete the student from the database
                             val db = StudentDB.getDatabase(context).studentDAO()
                             CoroutineScope(Dispatchers.IO).launch {
                                 db.deleteModel(student)
                             }
                             studentList.removeAt(position)
-                            notifyItemRemoved(position )
+                            notifyItemRemoved(position)
                         }
                         .setNegativeButton("No") { dialog, _ ->
                             // Cancel the deletion
@@ -85,41 +107,29 @@ class StudentAdapter(private val context: Context) : RecyclerView.Adapter<Studen
                     confirmationDialog.show()
                     true
                 }
+
                 R.id.check_opt -> {
                     // Handle check option click
                     true
                 }
+
                 R.id.linked_opt -> {
                     // Handle linked option click
                     true
                 }
+
                 else -> false
             }
         }
         popup.show()
-    }
-
-    // set the Filter List Here
-    fun setFilteredList(filteredList : MutableList<StudentModel> ) {
-            studentList = filteredList
-            notifyDataSetChanged()
-    }
-    // Set Data Method
-    fun setData(data: List<StudentModel>){
-        studentList.apply {
-            clear()
-            addAll(data)
-        }
-        notifyDataSetChanged()
-    }
-
-
+    }*/
 
     // MyViewHolder Class
-    class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val sdName : TextView = itemView.findViewById<TextView>(R.id.student_name)
-        val sdPhone : TextView = itemView.findViewById<TextView>(R.id.student_phone_number)
-        /*val deleteData : ImageView = itemView.findViewById(R.id.delete_item)*/
-        val selectMenuIcon : ImageView = itemView.findViewById(R.id.menuOptions)
+    class MyViewHolder(val binding: StudentItemRowBinding) : RecyclerView.ViewHolder(binding.root) {
+        /* val sdName : TextView =  binding.studentName
+        val sdPhone : TextView = binding.studentPhoneNumber
+        val selectMenuIcon : ImageView = binding.menuOptions*/
+        /*val deleteData: ImageView = binding.deleteItem*/
+        }
     }
-}
+

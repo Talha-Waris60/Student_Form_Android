@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_view"
-        tools:listitem="@layout/custom_row"
+        tools:listitem="@layout/student_item_row"
         android:layout_marginTop="10dp"/>
 
     <!--<com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ArticleModel(
-    val author : String,
+    val author : String? = null,
     val title : String,
     val description : String,
     val url : String,

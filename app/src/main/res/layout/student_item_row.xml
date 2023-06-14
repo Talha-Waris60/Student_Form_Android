@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="studentItemRow"
+            type="com.devdroiddev.studentinfo.models.StudentModel" />
+
+        <variable
+            name="clickListener"
+            type="com.devdroiddev.studentinfo.interfaces.OnItemClickListener" />
+        
+        <variable
+            name="menu"
+            type="com.devdroiddev.studentinfo.interfaces.PopMenu"/>
+
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPadding="10dp"
+        android:backgroundTint="@color/light_yellow"
+        app:cardCornerRadius="5dp"
+        android:elevation="5dp"
+        android:layout_margin="2dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="@{() -> clickListener.onItemClicked(studentItemRow)}">
+
+            <ImageView
+                android:id="@+id/student_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/student" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/student_image"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/student_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{studentItemRow.name}"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="3dp" />
+
+                <TextView
+                    android:id="@+id/student_phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{studentItemRow.phone}"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/menuOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignParentEnd="true"
+                android:paddingRight="15dp"
+                android:paddingLeft="18dp"
+                android:src="@drawable/dots"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:onClick="@{() -> menu.showMenu(menuOptions , studentItemRow, position)}"/>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -1,60 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.ShowNewsActivity"
-    android:padding="12dp"
-    android:layout_margin="5dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+        <variable
+            name="articleModel"
+            type="com.devdroiddev.studentinfo.models.ArticleModel" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:context=".activities.ShowNewsActivity"
+        android:padding="12dp"
+        android:layout_margin="5dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        app:cardCornerRadius="10dp">
-        <ImageView
-            android:id="@+id/show_news_image"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            tools:srcCompat="@tools:sample/avatars" />
-    </androidx.cardview.widget.CardView>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/show_news_author"
-            style="@style/TextAppearance.AppCompat.Headline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textStyle="bold"
-            android:textSize="13sp"
-            android:textColor="#F43A3A"
-            android:maxLines="2"
-            android:text="TextView" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                app:cardCornerRadius="10dp">
 
-        <TextView
-        android:id="@+id/show_news_title"
-        style="@style/TextAppearance.AppCompat.Headline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:maxLines="2"
-        android:text="TextView" />
+                <ImageView
+                    android:id="@+id/show_news_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/avatars"
+                    app:imageUrl="@{articleModel.urlToImage}"/>
+            </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/show_news_description"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:maxLines="2"
-        android:text="TextView" />
+            <TextView
+                android:id="@+id/show_news_author"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{articleModel.author}"
+                android:layout_marginTop="6dp"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="#F43A3A"
+                android:maxLines="2" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/show_news_title"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{articleModel.title}"
+                android:layout_marginTop="8dp"
+                android:maxLines="2" />
 
-</ScrollView>
+            <TextView
+                android:id="@+id/show_news_description"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{articleModel.description}"
+                android:layout_marginTop="8dp"
+                android:maxLines="2" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

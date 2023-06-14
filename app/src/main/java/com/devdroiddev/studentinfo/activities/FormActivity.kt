@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import androidx.databinding.DataBindingUtil
 import com.devdroiddev.studentinfo.R
 import com.devdroiddev.studentinfo.databinding.ActivityFormBinding
 import com.devdroiddev.studentinfo.dbclasses.StudentDB
+import com.devdroiddev.studentinfo.interfaces.OnItemClickListener
 import com.devdroiddev.studentinfo.models.StudentModel
 import com.devdroiddev.studentinfo.utils.Helper
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +21,7 @@ import java.util.Date
 class FormActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFormBinding
+    private lateinit var studentModel: StudentModel
     private val emailPattern : String = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
     private val APP_TAG = "Student_INFO"
     var from = ""
@@ -27,19 +30,28 @@ class FormActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFormBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_form)
 
+      /*  studentModel = intent.getParcelableExtra<StudentModel>("student_model")!!
+        binding.studentModel = studentModel*/
 
+        binding.formActivityInstance = this
         from = intent.getStringExtra("from") ?: ""
-
+        // Change the Button Text on the basis of Activity
         if (from == "MainActivity"){
             binding.submitBtn.text= "Submit"
         } else {
            binding.submitBtn.text = "Update"
+            studentModel = intent.getParcelableExtra<StudentModel>("student_model")!!
+            binding.studentModel = studentModel
+            binding.genderDropDown.setText(studentModel.gender, false)
+            binding.degreeDropDown.setText(studentModel.degree, false)
+            binding.gradeDropDown.setText(studentModel.grade, false)
+
         }
-        // TODO: Another way to Make DropDown Menu
-        /*val feelings = resources.getStringArray(R.array.feelings)
+
+       /* // TODO: Another way to Make DropDown Menu
+        val feelings = resources.getStringArray(R.array.feelings)
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, feelings)
         binding.autoCompleteTextView.setAdapter(arrayAdapter)*/
 
@@ -65,7 +77,7 @@ class FormActivity : AppCompatActivity() {
         binding.setBirthDate.transformIntoDatePicker(this,"MM/dd/yyyy", Date())*/
 
         // TODO: Submit Button
-        binding.submitBtn.setOnClickListener {
+       /* binding.submitBtn.setOnClickListener {
             if (from == "MainActivity") {
                 // add the data into the data base
                  performAuthentication()
@@ -95,34 +107,70 @@ class FormActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
+        }*/
 
-        // Get the intent here that is on adapter
+        // Get the intent here from Student adapter
+/*
         val getStudentRecord = intent.getParcelableExtra<StudentModel>("student_model")
+*/
 
         // Set these values on EditText
-        binding.userName.setText(getStudentRecord?.name)
+       /* binding.userName.setText(getStudentRecord?.name)
         binding.email.setText(getStudentRecord?.email)
-        binding.setBirthDate.setText(getStudentRecord?.birth)
-        val defaultGender = getStudentRecord?.gender
-        binding.genderDropDown.setText(defaultGender, false)
+        binding.setBirthDate.setText(getStudentRecord?.birth)*/
+       /* val defaultGender = getStudentRecord?.gender
+        binding.genderDropDown.setText(defaultGender, false)*/
        /* binding.genderDropDown.setText(getStudentRecord?.gender)*/
 //        val genderPosition = gender.indexOf(getStudentRecord?.gender)
 //        binding.genderDropDown.setSelection(genderPosition)
+/*
         binding.phoneNumber.setText( getStudentRecord?.phone)
-        val defaultDegree = getStudentRecord?.degree
+*/
+        /*val defaultDegree = getStudentRecord?.degree
         binding.degreeDropDown.setText(defaultDegree, false)
-       /* val degreePosition = degree.indexOf(getStudentRecord?.degree)
-        binding.degreeDropDown.setSelection(degreePosition)*/
+       *//* val degreePosition = degree.indexOf(getStudentRecord?.degree)
+        binding.degreeDropDown.setSelection(degreePosition)*//*
         val defaultGrade = getStudentRecord?.grade
-        binding.gradeDropDown.setText(defaultGrade,false)
+        binding.gradeDropDown.setText(defaultGrade,false)*/
         /*val gradePosition = grade.indexOf(getStudentRecord?.grade)
         binding.gradeDropDown.setSelection(gradePosition)*/
-        binding.address.setText(getStudentRecord?.address)
+   /*     binding.address.setText(getStudentRecord?.address)
         binding.city.setText(getStudentRecord?.city)
-        binding.zipCode.setText(getStudentRecord?.zipCode)
+        binding.zipCode.setText(getStudentRecord?.zipCode)*/
     }
 
+    fun addAndUpdateStudentBtn() {
+
+        Log.d(APP_TAG, "addAndUpdateStudentBtn")
+        if (from == "MainActivity") {
+            // add the data into the data base
+            performAuthentication()
+        } else {
+            //update the data on the reuse Activity
+//            studentModel = intent.getParcelableExtra<StudentModel>("student_model")!!
+            val updatedStudent = studentModel?.copy(
+                name = binding.userName.text.toString(),
+                email = binding.email.text.toString(),
+                birth = binding.setBirthDate.text.toString(),
+                gender = binding.genderDropDown.text.toString(),
+                phone = binding.phoneNumber.text.toString(),
+                degree = binding.degreeDropDown.text.toString(),
+                grade = binding.gradeDropDown.text.toString(),
+                address = binding.address.text.toString(),
+                city = binding.city.text.toString(),
+                zipCode = binding.zipCode.text.toString()
+            )
+            val db = StudentDB.getDatabase(applicationContext).studentDAO()
+            CoroutineScope(Dispatchers.IO).launch {
+                if (updatedStudent != null) {
+                    db.updateModel(updatedStudent)
+                    withContext(Dispatchers.Main) {
+                        finish()
+                    }
+                }
+            }
+        }
+    }
     // TODO: Method to Perform Authentication on Form
     private fun performAuthentication() {
 
@@ -204,6 +252,10 @@ class FormActivity : AppCompatActivity() {
         startActivity(Intent(this@FormActivity, StudentListActivity::class.java))
         finish()
     }
+
+    // Method of ClickListener
+    // Add Student and Update Student Button
+
     /*
     if (userName.isEmpty()) {
         binding.userName.error = "Field is Empty"
@@ -232,31 +284,7 @@ class FormActivity : AppCompatActivity() {
         else showSnackBar("Internet is not Available")
     }
 }*/
-        // TODO: Check for Internet accessibility
 
-
-    /*   Alternative way of Performing of Validation
-        TODO: validateField(userName, "Field is Empty", binding.userName)
-            validateField(email, "Field is Empty", binding.email)
-            validateField(email.matches(emailPattern.toRegex()), "Enter Correct Email", binding.email)
-            validateField(phoneNumber, "Field is Empty", binding.phoneNumber)
-            validateField(phoneNumber.matches(phoneNumberPattern.toRegex()), "Enter Correct Number", binding.phoneNumber)
-            validateField(address, "Field is Empty", binding.address)
-            validateField(city, "Field is Empty", binding.city)
-            validateField(zipCode, "Field is Empty", binding.zipCode)*/
-
-        /* private fun validateField(value: String, errorMessage: String, view: EditText) {
-            if (value.isEmpty()) {
-                view.error = errorMessage
-            }
-        }*/
-
-        /*  Method for checking the condition for Matching pattern
-         private fun validateField(condition: Boolean, errorMessage: String, view: EditText) {
-            if (!condition) {
-                view.error = errorMessage
-            }
-        }*/
 
     }
 

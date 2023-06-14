@@ -1,70 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.FormActivity"
-    android:padding="22dp"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-   <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Full Name"
-        app:hintTextColor="@color/black"
-        app:boxBackgroundColor="@color/light_yellow"
-        app:boxStrokeColor="@color/black"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        android:layout_marginTop="70dp">
+    <data>
+        <variable
+            name="studentModel"
+            type="com.devdroiddev.studentinfo.models.StudentModel" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/userName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        app:hintTextColor="@color/black"
-        app:boxBackgroundColor="@color/light_yellow"
-        app:boxStrokeColor="@color/black"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        android:layout_marginTop="@dimen/margin_medium">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        <variable
+            name="formActivityInstance"
+            type="com.devdroiddev.studentinfo.activities.FormActivity" />
+    </data>
 
     <LinearLayout
-        android:id="@+id/gender_birth_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium">
+        android:layout_height="match_parent"
+        tools:context=".activities.FormActivity"
+        android:padding="22dp"
+        android:orientation="vertical">
+
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/birthDate"
-            android:layout_width="0dp"
+            android:id="@+id/til_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Birth Date"
+            android:hint="Full Name"
             app:hintTextColor="@color/black"
             app:boxBackgroundColor="@color/light_yellow"
             app:boxStrokeColor="@color/black"
@@ -72,231 +33,21 @@
             app:boxCornerRadiusBottomStart="20dp"
             app:boxCornerRadiusTopEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
-            android:padding="@dimen/padding_small">
+            android:layout_marginTop="70dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/set_birth_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-           <!-- <Spinner
-                android:id="@+id/genderDropDown"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:spinnerMode="dropdown"
-                android:padding="4dp"
-                android:layout_marginLeft="2dp" />-->
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:hint="Gender"
-            android:textColorHint="@color/black"
-            app:hintTextColor="@color/black"
-            app:boxStrokeColor="@color/black"
-            app:endIconTint="@color/black"
-            app:boxBackgroundColor="@color/light_yellow"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            android:padding="@dimen/padding_small">
-
-            <AutoCompleteTextView
-                android:id="@+id/genderDropDown"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:dropDownWidth="wrap_content"
-                android:inputType="none"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:maxLength="120"
-                android:singleLine="true"
-                android:ellipsize="end" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone Number"
-        app:hintTextColor="@color/black"
-        app:boxBackgroundColor="@color/light_yellow"
-        app:boxStrokeColor="@color/black"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        android:layout_marginTop="@dimen/margin_medium">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/phoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:id="@+id/degree_grade_lay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium">
-
-
-<!--        <Spinner
-            android:id="@+id/degreeDropDown"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            android:spinnerMode="dropdown"
-            android:padding="4dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/custom_bg"/>
-
-        <Spinner
-            android:id="@+id/gradeDropDown"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:theme="@style/Theme.MaterialComponents.Light"
-            android:spinnerMode="dropdown"
-            android:padding="4dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/custom_bg"/>-->
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:hint="Degree"
-            android:textColorHint="@color/black"
-            app:hintTextColor="@color/black"
-            app:boxStrokeColor="@color/black"
-            app:endIconTint="@color/black"
-            app:boxBackgroundColor="@color/light_yellow"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            android:padding="@dimen/padding_small">
-
-            <AutoCompleteTextView
-                android:id="@+id/degreeDropDown"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:dropDownWidth="wrap_content"
-                android:inputType="none"
-                android:maxLines="1"
-                android:maxLength="120"
-                android:ellipsize="end"
-                android:singleLine="true" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Grade"
-            android:textColorHint="@color/black"
-            app:hintTextColor="@color/black"
-            app:boxStrokeColor="@color/black"
-            app:endIconTint="@color/black"
-            app:boxBackgroundColor="@color/light_yellow"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            android:padding="@dimen/padding_small">
-
-            <AutoCompleteTextView
-                android:id="@+id/gradeDropDown"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:dropDownWidth="wrap_content"
-                android:inputType="none"
-                android:maxLines="1"
-                android:maxLength="120"
-                android:ellipsize="end"
-                android:singleLine="true"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address"
-        app:hintTextColor="@color/black"
-        app:boxBackgroundColor="@color/light_yellow"
-        app:boxStrokeColor="@color/black"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        android:layout_marginTop="@dimen/margin_medium">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:id="@+id/city_zip_lay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:weightSum="2">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="City"
-            app:hintTextColor="@color/black"
-            app:boxStrokeColor="@color/black"
-            app:boxBackgroundColor="@color/light_yellow"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            android:padding="@dimen/padding_small">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/city"
+                android:id="@+id/userName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                />
+                android:text="@{studentModel.name}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Zip Code"
+            android:hint="Email"
             app:hintTextColor="@color/black"
             app:boxBackgroundColor="@color/light_yellow"
             app:boxStrokeColor="@color/black"
@@ -304,33 +55,292 @@
             app:boxCornerRadiusBottomStart="20dp"
             app:boxCornerRadiusTopEnd="20dp"
             app:boxCornerRadiusTopStart="20dp"
-            android:padding="@dimen/padding_small">
+            android:layout_marginTop="@dimen/margin_medium">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/zipCode"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:inputType="textEmailAddress"
+                android:text="@{studentModel.email}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:id="@+id/gender_birth_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/birthDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Birth Date"
+                app:hintTextColor="@color/black"
+                app:boxBackgroundColor="@color/light_yellow"
+                app:boxStrokeColor="@color/black"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                android:padding="@dimen/padding_small">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/set_birth_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:text="@{studentModel.birth}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!-- <Spinner
+                 android:id="@+id/genderDropDown"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:spinnerMode="dropdown"
+                 android:padding="4dp"
+                 android:layout_marginLeft="2dp" />-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:hint="Gender"
+                android:textColorHint="@color/black"
+                app:hintTextColor="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:endIconTint="@color/black"
+                app:boxBackgroundColor="@color/light_yellow"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                android:padding="@dimen/padding_small">
+
+                <AutoCompleteTextView
+                    android:id="@+id/genderDropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:inputType="none"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:maxLength="120"
+                    android:singleLine="true"
+                    android:ellipsize="end"/>
+                    <!--android:text="@{studentModel.gender}"-->
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            app:hintTextColor="@color/black"
+            app:boxBackgroundColor="@color/light_yellow"
+            app:boxStrokeColor="@color/black"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            android:layout_marginTop="@dimen/margin_medium">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="@{studentModel.phone}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/degree_grade_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium">
+
+
+            <!--        <Spinner
+                        android:id="@+id/degreeDropDown"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        android:spinnerMode="dropdown"
+                        android:padding="4dp"
+                        android:layout_marginLeft="2dp"
+                        android:background="@drawable/custom_bg"/>
+
+                    <Spinner
+                        android:id="@+id/gradeDropDown"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        android:spinnerMode="dropdown"
+                        android:padding="4dp"
+                        android:layout_marginLeft="2dp"
+                        android:background="@drawable/custom_bg"/>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:hint="Degree"
+                android:textColorHint="@color/black"
+                app:hintTextColor="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:endIconTint="@color/black"
+                app:boxBackgroundColor="@color/light_yellow"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                android:padding="@dimen/padding_small">
+
+                <AutoCompleteTextView
+                    android:id="@+id/degreeDropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:maxLength="120"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Grade"
+                android:textColorHint="@color/black"
+                app:hintTextColor="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:endIconTint="@color/black"
+                app:boxBackgroundColor="@color/light_yellow"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                android:padding="@dimen/padding_small">
+
+                <AutoCompleteTextView
+                    android:id="@+id/gradeDropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:inputType="none"
+                    android:maxLines="1"
+                    android:maxLength="120"
+                    android:ellipsize="end"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            app:hintTextColor="@color/black"
+            app:boxBackgroundColor="@color/light_yellow"
+            app:boxStrokeColor="@color/black"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            android:layout_marginTop="@dimen/margin_medium">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:text="@{studentModel.address}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/city_zip_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:weightSum="2">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="City"
+                app:hintTextColor="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxBackgroundColor="@color/light_yellow"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                android:padding="@dimen/padding_small">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@{studentModel.city}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Zip Code"
+                app:hintTextColor="@color/black"
+                app:boxBackgroundColor="@color/light_yellow"
+                app:boxStrokeColor="@color/black"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                android:padding="@dimen/padding_small">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/zipCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@{studentModel.zipCode}"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/submit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_gravity="center"
+            android:onClick="@{()-> formActivityInstance.addAndUpdateStudentBtn()}"/>
+
+
+
     </LinearLayout>
-
-    <Button
-        android:id="@+id/submit_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_gravity="center"/>
-
-    <Button
-        android:id="@+id/updateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_gravity="center"/>
-
-</LinearLayout>
+</layout>
